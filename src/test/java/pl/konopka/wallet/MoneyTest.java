@@ -15,4 +15,8 @@ public class MoneyTest {
         Assertions.assertEquals(15,product.getAmount());
     }
 
+    @Test
+    public void testEquality() {
+        Assertions.assertTrue(new Dollar(5).equals(new Dollar(5)));
+    }
 }
