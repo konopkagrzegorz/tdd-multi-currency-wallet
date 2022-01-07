@@ -1,28 +1,12 @@
 package pl.konopka.wallet;
 
-class Dollar {
+class Dollar extends Money {
 
-    private int amount;
-
-    Dollar(int amount) {
-        this.amount = amount;
-    }
-
-    public int getAmount() {
-        return amount;
+    public Dollar(int amount) {
+        super(amount);
     }
 
     Dollar times(int multiplier) {
         return new Dollar(this.amount * multiplier);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Dollar dollar = (Dollar) o;
-
-        return amount == dollar.amount;
     }
 }
