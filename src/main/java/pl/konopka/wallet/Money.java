@@ -1,6 +1,6 @@
 package pl.konopka.wallet;
 
-public abstract class Money {
+public class Money {
 
     protected int amount;
     protected String currency;
@@ -10,16 +10,20 @@ public abstract class Money {
         this.currency = currency;
     }
 
-    abstract String currency();
-
-    abstract Money times(int multiplier);
-
-    static Dollar dollar(int amount) {
-        return new Dollar(amount, "USD");
+    String currency() {
+        return this.currency;
     }
 
-    static Franc franc(int amount) {
-        return new Franc(amount, "CHF");
+    Money times(int multiplier) {
+        return new Money(this.amount * multiplier,this.currency);
+    }
+
+    static Money dollar(int amount) {
+        return new Money(amount, "USD");
+    }
+
+    static Money franc(int amount) {
+        return new Money(amount, "CHF");
     }
 
     @Override
@@ -29,11 +33,18 @@ public abstract class Money {
 
         Money money = (Money) o;
 
-        return amount == money.amount;
+        if (amount != money.amount) return false;
+        return currency.equals(money.currency);
     }
 
     @Override
     public int hashCode() {
-        return amount;
+        int result = amount;
+        result = 31 * result + currency.hashCode();
+        return result;
+    }
+
+    public Money plus(Money add) {
+        return new Money(this.amount + add.amount, this.currency);
     }
 }

@@ -14,7 +14,7 @@ public class MoneyTest {
 
     @Test
     public void testFrancMultiplication() {
-        Franc franc = Money.franc(5);
+        Money franc = Money.franc(5);
         Assertions.assertEquals(Money.franc(10),franc.times(2));
         Assertions.assertEquals(Money.franc(15),franc.times(3));
     }
@@ -25,14 +25,22 @@ public class MoneyTest {
         Assertions.assertFalse(Money.dollar(5).equals(Money.dollar(6)));
         Assertions.assertFalse(Money.dollar(5) == null);
         Assertions.assertTrue(Money.franc(10).equals(Money.franc(10)));
-        Assertions.assertFalse(Money.franc(10).equals(Money.franc(5)));
-        Assertions.assertFalse(Money.franc(5) == null);
-        Assertions.assertFalse(Money.dollar(5).equals(Money.franc(5)));
     }
 
     @Test
     public void testCurrency() {
         Assertions.assertEquals("USD", Money.dollar(1).currency());
         Assertions.assertEquals("CHF", Money.franc(1).currency());
+    }
+
+    @Test
+    public void testDifferentClassEquality() {
+        Assertions.assertFalse(Money.dollar(10).equals(Money.franc(10)));
+    }
+
+    @Test
+    public void testSimpleAddition() {
+        Money sum = Money.dollar(5).plus(Money.dollar(5));
+        Assertions.assertEquals(Money.dollar(10),sum);
     }
 }
